@@ -4,6 +4,8 @@
 
 > ⚠️ 本项目为**非官方**客户端，仅供个人学习与使用，请勿用于商业用途。
 
+**本项目完全由AI编写完成**
+
 ## ✨ 功能特性
 
 - 🎨 **无边框窗口 + 自定义标题栏**：后退 / 前进 / 刷新 / 首页、窗口控制按钮，深色 / 浅色主题（跟随系统）。
@@ -189,4 +191,5 @@ sudo chmod 4755 node_modules/electron/dist/chrome-sandbox
 ## 📄 License
 
 [MIT](./LICENSE)
+# NetEase_CloudMusic-Linux
 # NetEase_CloudMusic-Linux
