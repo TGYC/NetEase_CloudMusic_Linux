@@ -34,21 +34,26 @@
       "package.json"
     ],
     "asar": true,
+    "npmRebuild": false,
     "linux": {
       "target": [
         "AppImage",
-        "deb"
+        "deb",
+        "rpm",
+        "tar.gz"
       ],
       "category": "AudioVideo;Audio",
       "icon": "build/icon.png",
       "maintainer": "CloudMusic Contributors",
-      "syncDesktopName": true
+      "syncDesktopName": true,
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
     },
     "win": {
       "target": [
-        "nsis"
+        "zip"
       ],
-      "icon": "build/icon.png"
+      "icon": "build/icon.png",
+      "artifactName": "${productName}-${version}-win-${arch}.${ext}"
     },
     "mac": {
       "target": [
@@ -63,7 +68,8 @@
       "artifactName": "${productName}-Setup-${version}.${ext}"
     }
   },
-  "dependencies": {
+  "dependencies": {},
+  "optionalDependencies": {
     "mpris-service": "^2.1.2"
   }
 }
