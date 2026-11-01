@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CloudMusic</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- 自定义标题栏 -->
+    <header id="titlebar">
+      <div class="tb-left">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18">
+            <path
+              d="M9 18.5a2.5 2.5 0 1 1-1-2 2.5 2.5 0 0 1 1 2zm9-1a2.5 2.5 0 1 1-1-2 2.5 2.5 0 0 1 1 2zM9.2 18.5V7.2l9.6-2v11.3"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="nav">
+          <button id="btnBack" class="tb-btn" title="后退 (Alt+←)" disabled>
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button id="btnForward" class="tb-btn" title="前进 (Alt+→)" disabled>
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button id="btnReload" class="tb-btn" title="刷新 (Ctrl+R)">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 11a8 8 0 1 0-2.34 5.66M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button id="btnHome" class="tb-btn" title="回到首页 (Ctrl+H)">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M3 11l9-8 9 8M5 9.5V21h14V9.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="tb-center">
+        <span id="pageTitle">网易云音乐</span>
+      </div>
+
+      <div class="tb-right">
+        <button id="btnMini" class="tb-btn" title="迷你播放器 (Ctrl+Shift+M)">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 18.5a2.5 2.5 0 1 1-1-2 2.5 2.5 0 0 1 1 2zm9-1a2.5 2.5 0 1 1-1-2 2.5 2.5 0 0 1 1 2zM9.2 18.5V7.2l9.6-2v11.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button id="btnMore" class="tb-btn" title="更多功能">
+          <svg viewBox="0 0 24 24" width="18" height="18"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+        </button>
+        <div class="win-controls">
+          <button id="btnMin" class="win-btn" title="最小化">
+            <svg viewBox="0 0 12 12" width="12" height="12"><path d="M2 6h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </button>
+          <button id="btnMax" class="win-btn" title="最大化 / 还原">
+            <svg viewBox="0 0 12 12" width="12" height="12"><rect x="2.2" y="2.2" width="7.6" height="7.6" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+          </button>
+          <button id="btnClose" class="win-btn win-close" title="关闭">
+            <svg viewBox="0 0 12 12" width="12" height="12"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 加载进度条 -->
+    <div id="progress"><div id="progressBar"></div></div>
+
+    <!-- 错误 / 加载失败页面（此时隐藏内容视图） -->
+    <main id="errorOverlay" hidden>
+      <div class="error-card">
+        <div class="error-icon">
+          <svg viewBox="0 0 24 24" width="40" height="40"><path d="M12 3a9 9 0 1 0 9 9 9 9 0 0 0-9-9zm0 5v5m0 3v.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h1>页面加载失败</h1>
+        <p id="errorDesc">无法连接到网易云音乐，请检查网络连接。</p>
+        <div class="error-actions">
+          <button id="btnRetry" class="btn primary">重新加载</button>
+          <button id="btnOpenBrowser" class="btn">在浏览器中打开</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- 轻提示 -->
+    <div id="toasts"></div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>

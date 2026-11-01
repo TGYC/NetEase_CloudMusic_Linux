@@ -1,0 +1,184 @@
+:root {
+  --accent: #c20c0c;
+  --accent-soft: #e33;
+  --bg: #1e1e23;
+  --bg-2: #28282e;
+  --fg: #f0f0f2;
+  --fg-dim: #a0a0a8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+  padding: 12px 14px;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  -webkit-app-region: drag;
+}
+
+/* 封面 */
+.cover {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  flex: none;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-2);
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cover-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-dim);
+}
+
+/* 信息区 */
+.info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artist {
+  font-size: 11px;
+  color: var(--fg-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 控制按钮 */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+  -webkit-app-region: no-drag;
+}
+
+.ctl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.ctl:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ctl-main {
+  width: 40px;
+  height: 40px;
+  background: var(--accent);
+  color: #fff;
+}
+
+.ctl-main:hover {
+  background: var(--accent-soft);
+}
+
+.ic-pause {
+  display: none;
+}
+
+.playing .ic-play {
+  display: none;
+}
+
+.playing .ic-pause {
+  display: block;
+}
+
+/* 右上角操作按钮（置顶 / 关闭） */
+.card-actions {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  display: flex;
+  gap: 2px;
+  -webkit-app-region: no-drag;
+}
+
+.mini-btn {
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--fg-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.12s, background 0.12s, color 0.12s;
+}
+
+.card:hover .mini-btn,
+.mini-btn.pinned {
+  opacity: 1;
+}
+
+.mini-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--fg);
+}
+
+/* 置顶按钮：处于置顶态时高亮 */
+.mini-btn.pin.pinned {
+  color: var(--accent-soft);
+  background: rgba(227, 51, 51, 0.18);
+}

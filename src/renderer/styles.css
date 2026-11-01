@@ -1,0 +1,347 @@
+:root {
+  --accent: #c20c0c;
+  --accent-soft: #e33;
+  --titlebar-h: 44px;
+  --titlebar-bg: #1a1a1e;
+  --titlebar-fg: #e8e8ea;
+  --titlebar-fg-dim: #9a9aa2;
+  --btn-hover: rgba(255, 255, 255, 0.08);
+  --btn-active: rgba(255, 255, 255, 0.14);
+  --close-hover: #e81123;
+  --error-bg: #0b0b0e;
+  --error-fg: #e8e8ea;
+  --error-dim: #9a9aa2;
+  --card-bg: #1a1a1e;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+html[data-theme='light'] {
+  --titlebar-bg: #f4f4f6;
+  --titlebar-fg: #2b2b30;
+  --titlebar-fg-dim: #888890;
+  --btn-hover: rgba(0, 0, 0, 0.06);
+  --btn-active: rgba(0, 0, 0, 0.12);
+  --error-bg: #f4f4f6;
+  --error-fg: #2b2b30;
+  --error-dim: #888890;
+  --card-bg: #ffffff;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+body {
+  background: var(--error-bg);
+}
+
+/* ------------------------------------------------------------------ */
+/* 标题栏                                                              */
+/* ------------------------------------------------------------------ */
+#titlebar {
+  position: relative;
+  z-index: 20;
+  height: var(--titlebar-h);
+  display: flex;
+  align-items: center;
+  background: var(--titlebar-bg);
+  color: var(--titlebar-fg);
+  -webkit-app-region: drag;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+}
+
+.tb-left,
+.tb-right {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  -webkit-app-region: no-drag;
+}
+
+.tb-left {
+  padding-left: 10px;
+  gap: 6px;
+}
+
+.tb-right {
+  margin-left: auto;
+  gap: 2px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  margin-right: 4px;
+  flex: none;
+}
+
+.nav {
+  display: flex;
+  gap: 2px;
+}
+
+.tb-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--titlebar-fg);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.12s;
+  -webkit-app-region: no-drag;
+}
+
+.tb-btn:hover:not(:disabled) {
+  background: var(--btn-hover);
+}
+
+.tb-btn:active:not(:disabled) {
+  background: var(--btn-active);
+}
+
+.tb-btn:disabled {
+  color: var(--titlebar-fg-dim);
+  opacity: 0.45;
+  cursor: default;
+}
+
+.tb-center {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+#pageTitle {
+  max-width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  color: var(--titlebar-fg-dim);
+}
+
+/* 窗口控制按钮 */
+.win-controls {
+  display: flex;
+  height: 100%;
+}
+
+.win-btn {
+  width: 46px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--titlebar-fg);
+  cursor: pointer;
+  transition: background 0.12s;
+  -webkit-app-region: no-drag;
+}
+
+.win-btn:hover {
+  background: var(--btn-hover);
+}
+
+.win-btn:active {
+  background: var(--btn-active);
+}
+
+.win-close:hover {
+  background: var(--close-hover);
+  color: #fff;
+}
+
+/* macOS：给红绿灯留出空间，隐藏自绘窗口控制按钮 */
+html[data-platform='darwin'] .tb-left {
+  padding-left: 84px;
+}
+
+html[data-platform='darwin'] .win-controls {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* 加载进度条                                                          */
+/* ------------------------------------------------------------------ */
+#progress {
+  position: relative;
+  z-index: 21;
+  height: 2px;
+  background: transparent;
+  overflow: hidden;
+}
+
+#progressBar {
+  height: 100%;
+  width: 0;
+  background: var(--accent-soft);
+  transition: width 0.15s ease, opacity 0.2s ease;
+  opacity: 0;
+}
+
+#progress.loading #progressBar {
+  opacity: 1;
+  animation: indeterminate 1.2s ease-in-out infinite;
+}
+
+@keyframes indeterminate {
+  0% {
+    width: 0;
+    margin-left: 0;
+  }
+  50% {
+    width: 60%;
+    margin-left: 20%;
+  }
+  100% {
+    width: 0;
+    margin-left: 100%;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* 错误页面                                                            */
+/* ------------------------------------------------------------------ */
+#errorOverlay {
+  position: fixed;
+  inset: var(--titlebar-h) 0 0 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--error-bg);
+  color: var(--error-fg);
+}
+
+#errorOverlay[hidden] {
+  display: none;
+}
+
+.error-card {
+  text-align: center;
+  max-width: 420px;
+  padding: 40px;
+  background: var(--card-bg);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.error-icon {
+  color: var(--accent-soft);
+  margin-bottom: 16px;
+}
+
+.error-card h1 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.error-card p {
+  font-size: 13px;
+  color: var(--error-dim);
+  line-height: 1.6;
+  margin-bottom: 22px;
+  word-break: break-all;
+}
+
+.error-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--error-dim);
+  background: transparent;
+  color: var(--error-fg);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.btn:hover {
+  background: var(--btn-hover);
+}
+
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: var(--accent-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* 轻提示                                                              */
+/* ------------------------------------------------------------------ */
+#toasts {
+  position: fixed;
+  top: calc(var(--titlebar-h) + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  padding: 9px 18px;
+  background: rgba(30, 30, 35, 0.95);
+  color: #fff;
+  font-size: 13px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  animation: toast-in 0.2s ease;
+}
+
+html[data-theme='light'] .toast {
+  background: rgba(40, 40, 45, 0.92);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
