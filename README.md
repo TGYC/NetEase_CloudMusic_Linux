@@ -189,3 +189,4 @@ sudo chmod 4755 node_modules/electron/dist/chrome-sandbox
 ## 📄 License
 
 [MIT](./LICENSE)
+# NetEase_CloudMusic-Linux
